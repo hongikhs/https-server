@@ -1,3 +1,4 @@
+#-*- coding:utf-8 -*-
 #!/usr/bin/env python3
 
 # Ported to Python 3 by Telmo "Trooper" (telmo.trooper@gmail.com)
@@ -12,13 +13,18 @@
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 import ssl
 
-separator = "-" * 80
-port = 4443
-httpd = HTTPServer(("", port), SimpleHTTPRequestHandler)
-httpd.socket = ssl.wrap_socket(httpd.socket, certfile="server.pem", server_side=True)
+try:
+    separator = "-" * 80
+    port = 4443
+    httpd = HTTPServer(("", port), SimpleHTTPRequestHandler)
+    httpd.socket = ssl.wrap_socket(httpd.socket, certfile="server.pem", server_side=True)
 
-print(separator)
-print("Server running on https://localhost:" + str(port))
-print(separator)
+    print(separator)
+    print("Server running on https://localhost:" + str(port))
+    print(separator)
 
-httpd.serve_forever()
+    httpd.serve_forever()
+
+except Exception as e:
+    print('error :', e)
+    input()
